@@ -1,6 +1,6 @@
 package felipemandu.com.br.mangaappstudy.entity
 
-enum class GenreEnum(genre: String) {
+enum class GenreEnum(val genre: String) {
     ACTION("Action"),
     ADVENTURE("Adventure"),
     CARS("Cars"),
@@ -45,5 +45,5 @@ enum class GenreEnum(genre: String) {
     THRILLER("Thriller"),
     VAMPIRE("Vampire"),
     YAOI("Yaoi"),
-    YURI ("Yuri")
+    YURI("Yuri")
 }

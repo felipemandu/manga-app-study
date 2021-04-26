@@ -4,47 +4,68 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class Manga(
-        @Id @GeneratedValue
-        @Column(name = "manga_id") var id: Long,
-        var title: String,
+@Table(name = "Manga")
+data class Manga(
+    @Id @GeneratedValue
+    @Column(name = "MANGA_ID", nullable = false)
+    val id: Long,
 
-        var release: Date,
+    @Column(name = "TITLE", nullable = false)
+    val title: String,
 
-        var rating: Int?,
+    @Column(name = "RELEASE")
+    val release: Date? = null,
 
-        var description: String?,
+    @Column(name = "RATING")
+    val rating: Int? = null,
 
-        @ManyToMany
-        @JoinTable(name = "manga_author",
-                joinColumns = [JoinColumn(name = "manga_id")],
-                inverseJoinColumns = [JoinColumn(name = "author_id")])
-        var authors: Set<Author>,
+    @Column(name = "DESCRIPTION")
+    val description: String? = null,
 
-        @ManyToMany
-        @JoinTable(name = "manga_genre",
-                joinColumns = [JoinColumn(name = "manga_id")],
-                inverseJoinColumns = [JoinColumn(name = "genre_id")])
-        var genreEnums: Set<Genre>?,
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS", nullable = false)
+    val status: Status,
 
-        @ManyToOne
-        @JoinColumn(name = "origin_language_id", nullable = false)
-        var originLanguage: Language?,
+    @ManyToMany
+    @JoinTable(
+        name = "Manga_Author",
+        joinColumns = [JoinColumn(name = "MANGA_ID")],
+        inverseJoinColumns = [JoinColumn(name = "AUTHOR_ID")]
+    )
+    val authors: Set<Author>,
 
-        @ManyToOne
-        @JoinColumn(name = "country_id", nullable = false)
-        var originCountry: Country,
+    @ManyToMany
+    @JoinTable(
+        name = "Manga_Genre",
+        joinColumns = [JoinColumn(name = "MANGA_ID")],
+        inverseJoinColumns = [JoinColumn(name = "GENRE_ID")]
+    )
+    val genres: Set<Genre>? = null,
 
-        @ManyToOne
-        @JoinColumn(name = "translated_language_id", nullable = false)
-        var translatedLanguage: Language?,
+    @ManyToOne
+    @JoinColumn(name = "COUNTRY_ID")
+    val originCountry: Country? = null,
 
-        @OneToMany
-        var chapters: Set<Chapter>,
+    @ManyToOne
+    @JoinColumn(name = "ORIGIN_LANGUAGE_ID")
+    val originLanguage: Language? = null,
 
-        var lastChapter: Date
+    @ManyToOne
+    @JoinColumn(name = "TRANSLATED_LANGUAGE_ID")
+    val translatedLanguage: Language? = null,
+
+    @ManyToOne
+    @JoinColumn(name = "HOSTING_WEBSITE_ID")
+    val hostingWebsite: HostingWebsite,
+
+    @OneToMany(mappedBy = "manga")
+    @Column(name = "CHAPTERS")
+    val chapters: Set<Chapter>,
+
+    @Column(name = "LAST_CHAPTER")
+    val lastChapter: Date
 ) {
     override fun toString(): String {
-        return "Manga(title='$title')"
+        return "Manga(id=$id, title='$title', release=$release, rating=$rating, description=$description, authors=$authors, genres=$genres, originCountry=$originCountry, originLanguage=$originLanguage, translatedLanguage=$translatedLanguage, chapters=$chapters, lastChapter=$lastChapter)"
     }
 }

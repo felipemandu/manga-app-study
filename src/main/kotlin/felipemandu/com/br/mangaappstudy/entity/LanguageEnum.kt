@@ -1,6 +1,6 @@
 package felipemandu.com.br.mangaappstudy.entity
 
-enum class LanguageEnum(language: String) {
+enum class LanguageEnum(val language: String) {
     ABKHAZIAN("abkhazian"),
     AFAR("afar"),
     AFRIKAANS("afrikaans"),
@@ -63,7 +63,7 @@ enum class LanguageEnum(language: String) {
     HINDI("hindi"),
     HIRI_MOTU("hiri motu"),
     HUNGARIAN("hungarian"),
-    INTERLINGUA ("interlingua" ),
+    INTERLINGUA("interlingua"),
     INDONESIAN("indonesian"),
     INTERLINGUE("interlingue"),
     IRISH("irish"),

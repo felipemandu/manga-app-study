@@ -4,26 +4,44 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class Chapter (
-        @Id @GeneratedValue
-        @Column(name="chapter_id")var id:Long,
-        var title:String,
+@Table(name = "Chapter")
+data class Chapter(
+    @Id @GeneratedValue
+    @Column(name = "CHAPTER_ID", nullable = false)
+    val id: Long,
 
-        var chapterNumber:Int,
+    @Column(name = "TITLE")
+    val title: String? = null,
 
-        var numberOfPages:Int,
+    @Column(name = "CHAPTER_NUMBER")
+    val chapterNumber: Int,
 
-        var ISBN:String,
+    @Column(name = "NUMBER_PAGES")
+    val numberPages: Int,
 
-        var release:Date,
+    @Column(name = "ISBN")
+    val ISBN: String? = null,
 
-        var numberOfVisualization:Int,
+    @Column(name = "RELEASE")
+    val release: Date,
 
-        @ElementCollection
-        var pages:Set<String>
+    @Column(name = "NUMBER_VISUALIZATION")
+    val numberVisualization: Int,
+
+    @ElementCollection
+    @CollectionTable(
+        name="Pages",
+        joinColumns=[JoinColumn(name="CHAPTER_ID")]
+    )
+    @Column(name = "PAGES")
+    val pages: Set<String>,
+
+    @ManyToOne
+    @JoinColumn(name = "MANGA_ID")
+    val manga: Manga
 ) {
     override fun toString(): String {
-        return "Chapter(title='$title', chapterNumber=$chapterNumber, numberOfPages=$numberOfPages)"
+        return "Chapter(id=$id, title=$title, chapterNumber=$chapterNumber, numberPages=$numberPages, ISBN=$ISBN, release=$release, numberVisualization=$numberVisualization, pages=$pages, manga=$manga)"
     }
 }
 

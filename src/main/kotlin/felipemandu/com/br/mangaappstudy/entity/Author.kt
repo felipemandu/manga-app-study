@@ -3,17 +3,23 @@ package felipemandu.com.br.mangaappstudy.entity
 import javax.persistence.*
 
 @Entity
-class Author(
-        @Id @GeneratedValue
-        @Column(name = "author_id")
-        var id: Long,
+@Table(name = "Author")
+data class Author(
+    @Id @GeneratedValue
+    @Column(name = "AUTHOR_ID", nullable = false)
+    val id: Long,
 
-        var name: String,
+    @Column(name = "NAME", nullable =  false)
+    val name: String,
 
-        @OneToOne
-        var countryOrigin: Country,
+    @ManyToOne
+    @JoinColumn(name = "COUNTRY_ID")
+    val countryOrigin: Country,
 
-        @ManyToMany(mappedBy = "authors")
-        var mangas: Set<Manga>
-
-)
+    @ManyToMany(mappedBy = "authors")
+    val mangas: Set<Manga>
+) {
+    override fun toString(): String {
+        return "Author(id=$id, name='$name', countryOrigin=$countryOrigin, mangas=$mangas)"
+    }
+}
