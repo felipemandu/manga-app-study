@@ -22,7 +22,7 @@ data class Author(
 
     @ManyToOne
     @JoinColumn(name = "COUNTRY_ID")
-    val countryOrigin: Country,
+    val countryOrigin: Country?,
 
     @ManyToMany(mappedBy = "authors")
     val mangas: Set<Manga>

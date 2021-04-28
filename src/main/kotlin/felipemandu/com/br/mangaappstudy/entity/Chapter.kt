@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 
-
 @Entity
 @Table(name = "Chapter")
 data class Chapter(
@@ -21,27 +20,27 @@ data class Chapter(
     val id: Long,
 
     @Column(name = "TITLE")
-    val title: String? = null,
+    val title: String? = "",
 
     @Column(name = "CHAPTER_NUMBER")
-    val chapterNumber: Int,
+    val number: Int,
 
     @Column(name = "NUMBER_PAGES")
     val numberPages: Int,
 
     @Column(name = "ISBN")
-    val ISBN: String? = null,
+    val ISBN: String? = "",
 
     @Column(name = "RELEASE")
-    val release: Date,
+    val release: Date? = null,
 
     @Column(name = "NUMBER_VISUALIZATION")
     val numberVisualization: Int,
 
     @ElementCollection
     @CollectionTable(
-        name="Pages",
-        joinColumns=[JoinColumn(name="CHAPTER_ID")]
+        name = "Pages",
+        joinColumns = [JoinColumn(name = "CHAPTER_ID")]
     )
     @Column(name = "PAGES")
     val pages: Set<String>,
@@ -51,7 +50,7 @@ data class Chapter(
     val manga: Manga
 ) {
     override fun toString(): String {
-        return "Chapter(id=$id, title=$title, chapterNumber=$chapterNumber, numberPages=$numberPages, ISBN=$ISBN, release=$release, numberVisualization=$numberVisualization, pages=$pages, manga=$manga)"
+        return "Chapter(id=$id, title=$title, chapterNumber=$number, numberPages=$numberPages, ISBN=$ISBN, release=$release, numberVisualization=$numberVisualization, pages=$pages, manga=$manga)"
     }
 }
 

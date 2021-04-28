@@ -25,7 +25,7 @@ data class Language(
         joinColumns = [JoinColumn(name = "LANGUAGE_ID")],
         inverseJoinColumns = [JoinColumn(name = "COUNTRY_ID")]
     )
-    val countries :Set<Country>,
+    val countries: Set<Country>,
 
     @ManyToMany
     @JoinTable(
@@ -33,7 +33,7 @@ data class Language(
         joinColumns = [JoinColumn(name = "LANGUAGE_ID")],
         inverseJoinColumns = [JoinColumn(name = "HOSTING_WEBSITE_ID")]
     )
-    val hostingWebsites :Set<HostingWebsite>,
+    val hostingWebsites: Set<HostingWebsite>,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "LANGUAGE", unique = true, nullable = false)
