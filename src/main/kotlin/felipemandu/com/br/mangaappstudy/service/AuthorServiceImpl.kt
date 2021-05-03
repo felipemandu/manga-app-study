@@ -6,20 +6,19 @@ import felipemandu.com.br.mangaappstudy.repository.AuthorRepository
 import felipemandu.com.br.mangaappstudy.service.interfaces.AuthorService
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.Optional
 
 @Service
 class AuthorServiceImpl(
     override val repository: AuthorRepository,
-    override val mapper: AuthorMapper
+    override val to: AuthorMapper
 ) : AuthorService {
 
-    override fun getByName(name: String): Optional<Author> {
-        return repository.findByNameLike(name);
+    override fun getByName(name: String): Author{
+        return repository.findByNameLike(name).get()
     }
 
     override fun getByCountryOriginName(name: String, page: Pageable): List<Author> {
-        return repository.findByCountryOrigin_NameLike(name, page).toList();
+        return repository.findByCountryOrigin_NameLike(name, page).toList()
     }
 
     override fun getByCountryOriginId(id: Long): List<Author> {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class GenreServiceImpl(
     override val repository: GenreRepository,
-    override val mapper: GenreMapper
+    override val to: GenreMapper
 ): GenreService {
 
     override fun findByMangaId(id: Long): List<Genre> {

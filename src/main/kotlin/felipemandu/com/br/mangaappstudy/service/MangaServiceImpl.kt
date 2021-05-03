@@ -7,12 +7,11 @@ import felipemandu.com.br.mangaappstudy.service.interfaces.MangaService
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.Date
-import java.util.Optional
 
 @Service
 class MangaServiceImpl(
     override val repository: MangaRepository,
-    override val mapper: MangaMapper
+    override val to: MangaMapper
 ) : MangaService {
     override fun findByTitle(title: String, page: Pageable): List<Manga> {
         return repository.findByTitleLike(title, page).toList()
@@ -70,8 +69,8 @@ class MangaServiceImpl(
         return repository.findByChapters_NumberLessThanEqual(number, page).toList()
     }
 
-    override fun findByChapterName(name: String): Optional<Manga> {
-        return repository.findByChapters_TitleLike(name)
+    override fun findByChapterName(name: String): Manga {
+        return repository.findByChapters_TitleLike(name).get()
     }
 
     override fun findByLastChapterDate(date: Date, page: Pageable): List<Manga> {

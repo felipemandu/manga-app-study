@@ -4,7 +4,6 @@ import felipemandu.com.br.mangaappstudy.dto.MangaDTO
 import felipemandu.com.br.mangaappstudy.entity.Manga
 import org.springframework.data.domain.Pageable
 import java.util.Date
-import java.util.Optional
 
 interface MangaService : Service<MangaDTO, Manga> {
 
@@ -22,6 +21,6 @@ interface MangaService : Service<MangaDTO, Manga> {
     fun findByHostingWebsiteName(name:String, page:Pageable): List<Manga>
     fun findByNumberChapterGreaterThan(number: Int, page:Pageable): List<Manga>
     fun findByNumberChapterLessThan(number:Int, page:Pageable): List<Manga>
-    fun findByChapterName(name:String) : Optional<Manga>
+    fun findByChapterName(name:String) : Manga
     fun findByLastChapterDate(date: Date, page:Pageable):List<Manga>
 }

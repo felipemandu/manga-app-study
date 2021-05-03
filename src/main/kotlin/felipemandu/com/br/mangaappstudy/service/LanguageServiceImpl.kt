@@ -6,15 +6,14 @@ import felipemandu.com.br.mangaappstudy.repository.LanguageRepository
 import felipemandu.com.br.mangaappstudy.service.interfaces.LanguageService
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.Optional
 
 @Service
 class LanguageServiceImpl(
     override val repository: LanguageRepository,
-    override val mapper: LanguageMapper
+    override val to: LanguageMapper
 ) :LanguageService{
-    override fun findByLanguageName(name: String): Optional<Language> {
-        return repository.findByLanguageLike(name)
+    override fun findByLanguageName(name: String): Language {
+        return repository.findByLanguageLike(name).get()
     }
 
     override fun findByCountryId(id: Long, page: Pageable): List<Language> {

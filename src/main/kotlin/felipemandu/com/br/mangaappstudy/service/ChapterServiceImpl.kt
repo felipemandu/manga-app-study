@@ -7,28 +7,27 @@ import felipemandu.com.br.mangaappstudy.service.interfaces.ChapterService
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.Date
-import java.util.Optional
 
 @Service
 class ChapterServiceImpl(
     override val repository: ChapterRepository,
-    override val mapper: ChapterMapper
+    override val to: ChapterMapper
 ) : ChapterService {
 
-    override fun findByTitle(title: String): Optional<Chapter> {
-        return repository.findByTitleLike(title)
+    override fun findByTitle(title: String): Chapter {
+        return repository.findByTitleLike(title).get()
     }
 
-    override fun findByMangaIdAndChapterNumber(id: Long, number: Int): Optional<Chapter> {
-        return repository.findByNumberAndManga_Id(number, id)
+    override fun findByMangaIdAndChapterNumber(id: Long, number: Int): Chapter {
+        return repository.findByNumberAndManga_Id(number, id).get()
     }
 
     override fun findByMangaId(id: Long, page: Pageable): List<Chapter> {
         return repository.findByManga_id(id, page).toList()
     }
 
-    override fun findByISBN(isbn: String): Optional<Chapter> {
-        return repository.findByISBN(isbn)
+    override fun findByISBN(isbn: String): Chapter {
+        return repository.findByISBN(isbn).get()
     }
 
     override fun findByRelease(date: Date, page: Pageable): List<Chapter> {

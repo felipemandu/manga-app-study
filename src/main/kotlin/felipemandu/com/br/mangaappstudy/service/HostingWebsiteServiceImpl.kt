@@ -6,16 +6,15 @@ import felipemandu.com.br.mangaappstudy.repository.HostingWebsiteRepository
 import felipemandu.com.br.mangaappstudy.service.interfaces.HostingWebsiteService
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.Optional
 
 @Service
 class HostingWebsiteServiceImpl(
     override val repository: HostingWebsiteRepository,
-    override val mapper: HostingWebsiteMapper
+    override val to: HostingWebsiteMapper
 ): HostingWebsiteService {
 
-    override fun findByName(name: String): Optional<HostingWebsite> {
-        return repository.findByNameLike(name)
+    override fun findByName(name: String): HostingWebsite {
+        return repository.findByNameLike(name).get()
     }
 
     override fun findByMangaId(id: Long): HostingWebsite {
