@@ -1,11 +1,12 @@
 package felipemandu.com.br.mangaappstudy.entity
 
-import java.util.Date
+import java.time.LocalDate
 import javax.persistence.CollectionTable
 import javax.persistence.Column
 import javax.persistence.ElementCollection
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
@@ -15,27 +16,27 @@ import javax.persistence.Table
 @Entity
 @Table(name = "Chapter")
 data class Chapter(
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CHAPTER_ID", nullable = false)
     val id: Long,
 
     @Column(name = "TITLE")
-    val title: String? = "",
+    val title: String? = null,
 
     @Column(name = "CHAPTER_NUMBER")
     val number: Int,
 
     @Column(name = "NUMBER_PAGES")
-    val numberPages: Int,
+    val numberPages: Int? = null,
 
     @Column(name = "ISBN")
-    val ISBN: String? = "",
+    val ISBN: String? = null,
 
     @Column(name = "RELEASE")
-    val release: Date? = null,
+    val release: LocalDate? = null,
 
     @Column(name = "NUMBER_VISUALIZATION")
-    val numberVisualization: Int,
+    val numberVisualization: Int? = null,
 
     @ElementCollection
     @CollectionTable(
@@ -47,10 +48,10 @@ data class Chapter(
 
     @ManyToOne
     @JoinColumn(name = "MANGA_ID")
-    val manga: Manga
+    var manga: Manga? = null
 ) {
     override fun toString(): String {
-        return "Chapter(id=$id, title=$title, chapterNumber=$number, numberPages=$numberPages, ISBN=$ISBN, release=$release, numberVisualization=$numberVisualization, pages=$pages, manga=$manga)"
+        return "Chapter(id=$id, title=$title, number=$number, numberPages=$numberPages, ISBN=$ISBN, release=$release, numberVisualization=$numberVisualization)"
     }
 }
 

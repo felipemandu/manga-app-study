@@ -5,6 +5,7 @@ import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
@@ -15,7 +16,7 @@ import javax.persistence.Table
 @Entity
 @Table(name = "Language")
 data class Language(
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LANGUAGE_ID", nullable = false)
     val id: Long,
 
@@ -25,7 +26,7 @@ data class Language(
         joinColumns = [JoinColumn(name = "LANGUAGE_ID")],
         inverseJoinColumns = [JoinColumn(name = "COUNTRY_ID")]
     )
-    val countries: Set<Country>,
+    var countries: MutableSet<Country>? = mutableSetOf(),
 
     @ManyToMany
     @JoinTable(
@@ -33,7 +34,7 @@ data class Language(
         joinColumns = [JoinColumn(name = "LANGUAGE_ID")],
         inverseJoinColumns = [JoinColumn(name = "HOSTING_WEBSITE_ID")]
     )
-    val hostingWebsites: Set<HostingWebsite>,
+    var hostingWebsites: MutableSet<HostingWebsite>? = mutableSetOf(),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "LANGUAGE", unique = true, nullable = false)
@@ -42,4 +43,24 @@ data class Language(
     override fun toString(): String {
         return "Language(id=$id, language=$language)"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Language
+
+        if (id != other.id) return false
+        if (language != other.language) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + language.hashCode()
+        return result
+    }
+
+
 }
