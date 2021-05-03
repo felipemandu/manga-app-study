@@ -2,6 +2,7 @@ package felipemandu.com.br.mangaappstudy.mapper
 
 import felipemandu.com.br.mangaappstudy.dto.GenreDTO
 import felipemandu.com.br.mangaappstudy.entity.Genre
+import felipemandu.com.br.mangaappstudy.mapper.interfaces.Mapper
 import org.springframework.stereotype.Component
 
 @Component
