@@ -1,5 +1,5 @@
 package felipemandu.com.br.mangaappstudy.dto
 
-class LanguageDTO {
-
-}
+data class LanguageDTO (
+    val language: String
+)

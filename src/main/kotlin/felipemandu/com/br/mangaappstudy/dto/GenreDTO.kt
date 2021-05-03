@@ -1,5 +1,5 @@
 package felipemandu.com.br.mangaappstudy.dto
 
-class GenreDTO {
-
-}
+data class GenreDTO(
+    val genre: String
+)

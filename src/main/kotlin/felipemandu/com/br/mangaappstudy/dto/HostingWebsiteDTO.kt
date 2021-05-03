@@ -1,5 +1,5 @@
 package felipemandu.com.br.mangaappstudy.dto
 
-class HostingWebsiteDTO {
-
-}
+data class HostingWebsiteDTO(
+    val name: String
+)
