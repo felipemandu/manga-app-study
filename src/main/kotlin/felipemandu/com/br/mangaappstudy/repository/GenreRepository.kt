@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface GenreRepository : JpaRepository<Genre, Long> {
+
+    fun findByMangas_Id(id: Long): List<Genre>
+    fun findByMangas_Title(title: String): List<Genre>
 }
