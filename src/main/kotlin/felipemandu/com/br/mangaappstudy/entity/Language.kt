@@ -10,13 +10,15 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
+import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
 
 @Entity
 @Table(name = "Language")
 data class Language(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="language_sequence")
+    @SequenceGenerator(name="language_sequence", sequenceName="language_sequence", allocationSize = 1)
     @Column(name = "LANGUAGE_ID", nullable = false)
     val id: Long,
 

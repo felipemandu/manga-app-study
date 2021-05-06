@@ -7,12 +7,14 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
+import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
 @Entity
 @Table(name = "Country")
 data class Country(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="country_sequence")
+    @SequenceGenerator(name="country_sequence", sequenceName="country_sequence", allocationSize = 1)
     @Column(name = "COUNTRY_ID", nullable = false)
     val id: Long,
 

@@ -8,13 +8,16 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
+import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
 
 @Entity
 @Table(name = "Author")
 data class Author(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="author_sequence")
+    @SequenceGenerator(name="author_sequence", sequenceName="author_sequence", allocationSize = 1)
     @Column(name = "AUTHOR_ID", nullable = false)
     val id: Long,
 
@@ -23,7 +26,7 @@ data class Author(
 
     @ManyToOne
     @JoinColumn(name = "COUNTRY_ID")
-    val countryOrigin: Country? = null,
+    var countryOrigin: Country? = null,
 
     @ManyToMany(mappedBy = "authors")
     val mangas: MutableSet<Manga>? = mutableSetOf()

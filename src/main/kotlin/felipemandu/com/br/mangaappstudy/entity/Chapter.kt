@@ -10,13 +10,15 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
 
 @Entity
 @Table(name = "Chapter")
 data class Chapter(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="chapter_sequence")
+    @SequenceGenerator(name="chapter_sequence", sequenceName="chapter_sequence", allocationSize = 1)
     @Column(name = "CHAPTER_ID", nullable = false)
     val id: Long,
 
