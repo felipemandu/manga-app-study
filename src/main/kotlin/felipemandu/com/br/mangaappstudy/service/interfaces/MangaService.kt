@@ -1,11 +1,12 @@
 package felipemandu.com.br.mangaappstudy.service.interfaces
 
-import felipemandu.com.br.mangaappstudy.dto.MangaDTO
+import felipemandu.com.br.mangaappstudy.dto.MangaInputDTO
+import felipemandu.com.br.mangaappstudy.dto.MangaOutputDTO
 import felipemandu.com.br.mangaappstudy.entity.Manga
 import org.springframework.data.domain.Pageable
 import java.util.Date
 
-interface MangaService : Service<MangaDTO, Manga> {
+interface MangaService : Service<MangaInputDTO, MangaOutputDTO, Manga> {
 
     fun findByTitle(title: String, page: Pageable): List<Manga>
     fun findByRelease(date: Date, page: Pageable): List<Manga>
