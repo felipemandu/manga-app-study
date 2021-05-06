@@ -454,3 +454,4 @@ insert into country (COUNTRY_ID, name) values (221, 'WÜRTTEMBERG');
 insert into country (COUNTRY_ID, name) values (222, 'YEMEN');
 insert into country (COUNTRY_ID, name) values (223, 'ZAMBIA');
 insert into country (COUNTRY_ID, name) values (224, 'UNITED STATES OF AMERICA');
+insert into country (COUNTRY_ID, name) values (225, 'UNKNOWN');
