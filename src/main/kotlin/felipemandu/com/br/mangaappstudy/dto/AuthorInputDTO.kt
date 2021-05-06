@@ -1,6 +1,6 @@
 package felipemandu.com.br.mangaappstudy.dto
 
-data class CountryDTO(
+data class AuthorInputDTO(
     val name: String,
-    val spokenLanguage: Set<String>? = null
+    val countryId: Long? = null,
 )

@@ -1,5 +1,5 @@
 package felipemandu.com.br.mangaappstudy.dto
 
-data class LanguageDTO (
+data class LanguageInputDTO (
     val language: String
 )
