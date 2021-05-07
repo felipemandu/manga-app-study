@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import java.net.URL
+import javax.validation.Valid
 
 
 @Controller
@@ -29,7 +30,7 @@ class AuthorController(@Autowired val authorService: AuthorService) {
     val host = "http://localhost:8080/authors"
 
     @PostMapping("/")
-    fun createAuthor(@RequestBody authorInputDTO: AuthorInputDTO): ResponseEntity<ResponseWrapper<AuthorOutputDTO>> {
+    fun createAuthor(@RequestBody @Valid authorInputDTO: AuthorInputDTO): ResponseEntity<ResponseWrapper<AuthorOutputDTO>> {
         val response = try {
             val author = authorService.create(authorInputDTO)
             val resourceAddress = URL("$host/id/${author.id}")
