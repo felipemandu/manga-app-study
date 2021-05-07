@@ -12,14 +12,6 @@ class HostingWebsiteMapper: Mapper<HostingWebsiteInputDTO, HostingWebsiteOutputD
         TODO("Not yet implemented")
     }
 
-    override fun toDtoInput(entity: HostingWebsite): HostingWebsiteInputDTO {
-        TODO("Not yet implemented")
-    }
-
-    override fun fromOutputToToEntity(dto: HostingWebsiteOutputDTO): HostingWebsite {
-        TODO("Not yet implemented")
-    }
-
     override fun fromInputToEntity(dto: HostingWebsiteInputDTO): HostingWebsite {
         TODO("Not yet implemented")
     }

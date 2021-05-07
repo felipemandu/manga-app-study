@@ -19,14 +19,6 @@ class AuthorMapper : Mapper<AuthorInputDTO, AuthorOutputDTO, Author> {
         )
     }
 
-    override fun toDtoInput(entity: Author) =
-        AuthorInputDTO(name = entity.name)
-
-
-    override fun fromOutputToToEntity(dto: AuthorOutputDTO): Author {
-        TODO("Not yet implemented")
-    }
-
     override fun fromInputToEntity(dto: AuthorInputDTO): Author {
         return Author(0L, dto.name, Country(dto.countryId ?: 225, ""), mutableSetOf())
     }

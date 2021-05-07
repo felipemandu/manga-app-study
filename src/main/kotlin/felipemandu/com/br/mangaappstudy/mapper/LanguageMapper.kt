@@ -12,13 +12,6 @@ class LanguageMapper: Mapper<LanguageInputDTO, LanguageOutputDTO, Language> {
         TODO("Not yet implemented")
     }
 
-    override fun toDtoInput(entity: Language): LanguageInputDTO {
-        TODO("Not yet implemented")
-    }
-
-    override fun fromOutputToToEntity(dto: LanguageOutputDTO): Language {
-        TODO("Not yet implemented")
-    }
 
     override fun fromInputToEntity(dto: LanguageInputDTO): Language {
         TODO("Not yet implemented")

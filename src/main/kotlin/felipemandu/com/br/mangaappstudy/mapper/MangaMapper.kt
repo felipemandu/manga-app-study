@@ -20,14 +20,6 @@ class MangaMapper(
         TODO("Not yet implemented")
     }
 
-    override fun toDtoInput(entity: Manga): MangaInputDTO {
-        TODO("Not yet implemented")
-    }
-
-    override fun fromOutputToToEntity(dto: MangaOutputDTO): Manga {
-        TODO("Not yet implemented")
-    }
-
     override fun fromInputToEntity(dto: MangaInputDTO): Manga {
         TODO("Not yet implemented")
     }
