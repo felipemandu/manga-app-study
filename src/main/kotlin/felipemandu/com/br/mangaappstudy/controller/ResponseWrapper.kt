@@ -9,6 +9,5 @@ class ResponseWrapper<DTO>(
     val page: Int? = null,
     val size: Int? = null,
     val numberOfPages: Int? = null,
-    val error: Error? = null
 )
 
