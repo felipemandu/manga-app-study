@@ -1,6 +1,7 @@
 package felipemandu.com.br.mangaappstudy.service.interfaces
 
 import felipemandu.com.br.mangaappstudy.mapper.interfaces.Mapper
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 
@@ -21,8 +22,8 @@ interface Service<DTO_INPUT, DTO_OUTPUT, ENTITY> {
         return mapper.toDtoOutput(optional.get())
     }
 
-    fun findAll(page: Pageable): List<DTO_OUTPUT> {
-        return repository.findAll(page).map { mapper.toDtoOutput(it) }.toList()
+    fun findAll(page: Pageable): Page<DTO_OUTPUT> {
+        return repository.findAll(page).map { mapper.toDtoOutput(it) }
     }
 
     fun update(id: Long, dto: DTO_INPUT): DTO_OUTPUT {
