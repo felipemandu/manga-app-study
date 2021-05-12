@@ -19,7 +19,7 @@ data class Country(
     val id: Long,
 
     @Column(name = "NAME", nullable = false)
-    val name: String,
+    val name: String? = "UNKNOWN",
 
     @ManyToMany(mappedBy = "countries")
     var spokenLanguage: MutableSet<Language>? = mutableSetOf(),

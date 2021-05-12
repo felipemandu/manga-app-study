@@ -20,7 +20,7 @@ class AuthorMapper : Mapper<AuthorInputDTO, AuthorOutputDTO, Author> {
     }
 
     override fun fromInputToEntity(dto: AuthorInputDTO): Author {
-        return Author(0L, dto.name, Country(dto.countryId ?: 225, ""), mutableSetOf())
+        return Author(0L, dto.name, Country(dto.countryId ?: 225, null), mutableSetOf())
     }
 
     override fun updateEntity(dto: AuthorInputDTO, entity: Author): Author {
