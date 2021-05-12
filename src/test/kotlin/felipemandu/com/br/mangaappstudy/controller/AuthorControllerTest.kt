@@ -1,45 +1,69 @@
 package felipemandu.com.br.mangaappstudy.controller
 
-import org.json.JSONObject
+import com.fasterxml.jackson.databind.ObjectMapper
+import felipemandu.com.br.mangaappstudy.dto.AuthorInputDTO
+import felipemandu.com.br.mangaappstudy.dto.AuthorOutputDTO
+import felipemandu.com.br.mangaappstudy.entity.Author
+import felipemandu.com.br.mangaappstudy.mapper.AuthorMapper
+import felipemandu.com.br.mangaappstudy.repository.AuthorRepository
+import felipemandu.com.br.mangaappstudy.service.AuthorServiceImpl
+import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
+import io.mockk.junit5.MockKExtension
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.extension.ExtendWith
+import javax.validation.ValidationException
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@ExtendWith(MockKExtension::class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AuthorControllerTest {
 
-    @Autowired
-    lateinit var mvc: MockMvc
+    @MockK
+    lateinit var authorRepository: AuthorRepository
 
-    @Test
-    fun createAuthorCorrectly() {
+    val authorMapper: AuthorMapper = AuthorMapper()
 
-        val request = MockMvcRequestBuilders.post("http://locahost:8080/authors/")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(JSONObject().put("name", "Machado de Assis").toString())
+    @InjectMockKs
+    lateinit var authorService: AuthorServiceImpl
 
-        mvc.perform(request)
-            .andExpect(status().isCreated)
-            .andExpect(jsonPath("$.resource").exists())
-            .andExpect(jsonPath("$.resource.Author.id").value("1"))
-            .andExpect(jsonPath("$.resource.Author.name").value("Machado de Assis"))
+    lateinit var authorController: AuthorController
 
+
+    @BeforeAll
+    internal fun mockRepository() {
+        authorController = AuthorController(authorService)
+
+        val dto = AuthorInputDTO("Machado de Assis")
+
+        every { authorRepository.save(authorMapper.fromInputToEntity(dto)) }
+            .returns(Author(1, dto.name, null, mutableSetOf()))
     }
 
     @Test
-    fun createAuthorEmptyBody() {
-        val request = MockMvcRequestBuilders.post("http://locahost:8080/authors/")
-            .contentType(MediaType.APPLICATION_JSON)
+    fun `create a valid author`() {
 
-        mvc.perform(request)
-            .andExpect(status().is4xxClientError)
+        val response = authorController.createAuthor(AuthorInputDTO("Machado de Assis"))
+
+        assertEquals(201, response.statusCode.value())
+        assertEquals(true, response.hasBody())
+        assertEquals("authors/id/1", response.headers.location.toString())
+        assertEquals(
+            ObjectMapper().writeValueAsString(
+                AuthorOutputDTO(1, "Machado de Assis", "UNKNOWN", listOf())
+            ),
+            ObjectMapper().writeValueAsString(response.body?.resource)
+        )
+    }
+
+    @Test
+    fun `throw a Validation Exception when author name is invalid`() {
+        assertThrows<ValidationException> { authorController.createAuthor(AuthorInputDTO("João")) }
+
     }
 
 }
