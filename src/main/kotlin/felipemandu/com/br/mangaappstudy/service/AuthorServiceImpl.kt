@@ -1,5 +1,6 @@
 package felipemandu.com.br.mangaappstudy.service
 
+import felipemandu.com.br.mangaappstudy.dto.AuthorInputDTO
 import felipemandu.com.br.mangaappstudy.dto.AuthorOutputDTO
 import felipemandu.com.br.mangaappstudy.exception.AuthorNotFound
 import felipemandu.com.br.mangaappstudy.mapper.AuthorMapper
@@ -7,6 +8,7 @@ import felipemandu.com.br.mangaappstudy.repository.AuthorRepository
 import felipemandu.com.br.mangaappstudy.service.interfaces.AuthorService
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import javax.validation.ValidationException
 
 @Service
 class AuthorServiceImpl(
@@ -14,6 +16,17 @@ class AuthorServiceImpl(
     override val mapper: AuthorMapper
 ) : AuthorService {
 
+    override fun create(dto: AuthorInputDTO): AuthorOutputDTO {
+        val numberOfWords = dto.name
+            .split(" ")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .count()
+        if(numberOfWords <= 1) {
+            throw ValidationException("The Author must have a given name and a last name separated by a space")
+        }
+        return super.create(dto)
+    }
     override fun getByName(name: String): AuthorOutputDTO {
         val authorOptional = repository.findByNameLike(name)
         if (authorOptional.isEmpty) {
