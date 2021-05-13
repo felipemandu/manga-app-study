@@ -9,12 +9,14 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToMany
+import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
 @Entity
 @Table(name = "Genre")
 data class Genre(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="genre_sequence")
+    @SequenceGenerator(name="genre_sequence", sequenceName="genre_sequence", allocationSize = 1)
     @Column(name = "GENRE_ID")
     val id: Long,
 

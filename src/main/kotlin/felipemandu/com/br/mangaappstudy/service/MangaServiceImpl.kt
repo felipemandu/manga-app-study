@@ -11,8 +11,9 @@ import java.util.Date
 @Service
 class MangaServiceImpl(
     override val repository: MangaRepository,
-    override val to: MangaMapper
+    override val mapper: MangaMapper
 ) : MangaService {
+
     override fun findByTitle(title: String, page: Pageable): List<Manga> {
         return repository.findByTitleLike(title, page).toList()
     }

@@ -13,13 +13,15 @@ import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
+import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
 
 @Entity
 @Table(name = "Manga")
 data class Manga(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="manga_sequence")
+    @SequenceGenerator(name="manga_sequence", sequenceName="manga_sequence", allocationSize = 1)
     @Column(name = "MANGA_ID", nullable = false)
     val id: Long,
 

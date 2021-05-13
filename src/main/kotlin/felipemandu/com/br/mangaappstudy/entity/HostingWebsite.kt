@@ -7,13 +7,15 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
+import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 
 
 @Entity
 @Table(name = "Hosting_Website")
 data class HostingWebsite(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="hosting_website_sequence")
+    @SequenceGenerator(name="hosting_website_sequence", sequenceName="hosting_website_sequence", allocationSize = 1)
     @Column(name = "HOSTING_WEBSITE_ID", nullable = false)
     val id: Long,
 

@@ -1,7 +1,8 @@
 package felipemandu.com.br.mangaappstudy.mapper
 
-import felipemandu.com.br.mangaappstudy.dto.AuthorMapper
-import felipemandu.com.br.mangaappstudy.dto.MangaDTO
+
+import felipemandu.com.br.mangaappstudy.dto.MangaInputDTO
+import felipemandu.com.br.mangaappstudy.dto.MangaOutputDTO
 import felipemandu.com.br.mangaappstudy.entity.Manga
 import felipemandu.com.br.mangaappstudy.mapper.interfaces.Mapper
 import org.springframework.stereotype.Component
@@ -12,22 +13,21 @@ class MangaMapper(
     val mAuthor: AuthorMapper,
     val mLanguage: LanguageMapper,
     val mHosting: HostingWebsiteMapper
-) : Mapper<MangaDTO, Manga> {
+) : Mapper<MangaInputDTO, MangaOutputDTO, Manga> {
 
-    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-
-    override fun toDto(entity: Manga): MangaDTO {
+    val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    override fun toDtoOutput(entity: Manga): MangaOutputDTO {
         TODO("Not yet implemented")
     }
 
-
-    override fun toEntity(dto: MangaDTO): Manga {
+    override fun fromInputToEntity(dto: MangaInputDTO): Manga {
         TODO("Not yet implemented")
     }
 
-    override fun updateEntity(dto: MangaDTO, entity: Manga): Manga {
+    override fun updateEntity(dto: MangaInputDTO, entity: Manga): Manga {
         TODO("Not yet implemented")
     }
+
 
 }
 

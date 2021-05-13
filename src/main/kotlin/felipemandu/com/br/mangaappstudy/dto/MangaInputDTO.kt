@@ -1,6 +1,6 @@
 package felipemandu.com.br.mangaappstudy.dto
 
-class MangaDTO(
+class MangaInputDTO(
     val title: String,
     val release: String? = null,
     val rating: Int? = null,
